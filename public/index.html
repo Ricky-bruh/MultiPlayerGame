@@ -1,0 +1,116 @@
+<!-- D:\Projects\MultiPlayer\public\index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon-Style Multiplayer Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Lobby Screen -->
+    <div id="lobbyScreen" class="screen">
+        <div class="game-container">
+            <h1>Pokémon-Style Game</h1>
+            
+            <div class="tabs">
+                <button id="publicRoomsTab" class="tab-button active">Public Rooms</button>
+                <button id="privateRoomTab" class="tab-button">Private Room</button>
+                <button id="createRoomTab" class="tab-button">Create Room</button>
+            </div>
+            
+            <div id="publicRoomsPanel" class="tab-panel active">
+                <h2>Join a Public Room</h2>
+                <div class="rooms-list-container">
+                    <ul id="publicRoomsList">
+                        <li class="waiting-message">Searching for public rooms...</li>
+                    </ul>
+                </div>
+                <button id="refreshRooms">Refresh Rooms</button>
+            </div>
+            
+            <div id="privateRoomPanel" class="tab-panel">
+                <h2>Join a Private Room</h2>
+                <div class="private-join-form">
+                    <input type="text" id="privateRoomCode" placeholder="Enter Room Code" maxlength="16">
+                    <button id="joinPrivateRoom">Join Room</button>
+                </div>
+            </div>
+            
+            <div id="createRoomPanel" class="tab-panel">
+                <h2>Create New Room</h2>
+                <div class="room-type-selection">
+                    <div class="room-type-option">
+                        <input type="radio" id="publicRoomType" name="roomType" value="public" checked>
+                        <label for="publicRoomType">
+                            <strong>Public Room</strong><br>
+                            <small>Anyone can join from the rooms list</small>
+                        </label>
+                    </div>
+                    <div class="room-type-option">
+                        <input type="radio" id="privateRoomType" name="roomType" value="private">
+                        <label for="privateRoomType">
+                            <strong>Private Room</strong><br>
+                            <small>Only players with the room code can join</small>
+                        </label>
+                    </div>
+                </div>
+                <button id="createNewRoom">Create Room</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Room Screen -->
+    <div id="roomScreen" class="screen hidden">
+        <div class="game-container">
+            <h1 id="roomTitle">Game Room</h1>
+            <div id="roomInfo">
+                <span id="roomIdDisplay"></span>
+                <button id="copyRoomCode" class="small-button">Copy Code</button>
+            </div>
+            
+            <div class="menu-content">
+                <div class="player-form">
+                    <h2>Enter Your Name</h2>
+                    <input type="text" id="playerName" placeholder="Your Name" maxlength="12">
+                    <div class="color-selection">
+                        <h3>Choose Your Color</h3>
+                        <div class="color-options">
+                            <div class="color-option" data-color="#4169E1" style="background-color: #4169E1;"></div>
+                            <div class="color-option" data-color="#E34234" style="background-color: #E34234;"></div>
+                            <div class="color-option" data-color="#50C878" style="background-color: #50C878;"></div>
+                            <div class="color-option" data-color="#FFD700" style="background-color: #FFD700;"></div>
+                        </div>
+                    </div>
+                    <button id="startGame">Join Game</button>
+                </div>
+                <div class="current-players">
+                    <h2>Current Players</h2>
+                    <ul id="playersList">
+                        <li class="waiting-message">Waiting for players to join...</li>
+                    </ul>
+                    <button id="leaveRoom" class="secondary-button">Leave Room</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen hidden">
+        <div class="game-container">
+            <h1>Pokémon-Style Multiplayer Game</h1>
+            <div id="status">Connecting to server...</div>
+            <div id="player-info">Waiting for connection...</div>
+            <canvas id="gameCanvas" width="800" height="500"></canvas>
+            <div class="bottom-controls">
+                <div id="controls">
+                    <p><strong>Controls:</strong> Use <strong>W A S D</strong> keys to move</p>
+                </div>
+                <button id="leaveGame" class="secondary-button">Leave Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
