@@ -298,17 +298,17 @@ function setupSocketHandlers() {
                     updatePublicRoomsList(message.rooms);
                     break;
                     
-                    case 'roomCreated':
-                        currentRoomId = message.roomId;
-                        console.log(`Room created with ID: ${currentRoomId}`);
-                        
-                        // Show room info
-                        roomTitle.textContent = message.isPublic ? 'Public Game Room' : 'Private Game Room';
-                        roomIdDisplay.textContent = `Room Code: ${message.roomId}`;
-                        
-                        // Switch to room screen
-                        lobbyScreen.classList.add('hidden');
-                        roomScreen.classList.remove('hidden');
+                case 'roomCreated':
+                    currentRoomId = message.roomId;
+                    console.log(`Room created with ID: ${currentRoomId}`);
+                    
+                    // Show room info
+                    roomTitle.textContent = message.isPublic ? 'Public Game Room' : 'Private Game Room';
+                    roomIdDisplay.textContent = `Room Code: ${message.roomId}`;
+                    
+                    // Switch to room screen
+                    lobbyScreen.classList.add('hidden');
+                    roomScreen.classList.remove('hidden');
                     break;
                     
                 case 'roomJoined':
@@ -396,6 +396,10 @@ function setupSocketHandlers() {
                     break;
                     
                 case 'error':
+                    showNotification(message.message);
+                    break;
+                    
+                case 'notification':
                     showNotification(message.message);
                     break;
             }
@@ -603,6 +607,22 @@ function joinGame() {
         showNotification('Not connected to server. Please wait or refresh the page.');
     }
 }
+
+// Function to send the anti-cheat command
+function setAntiCheat(enabled) {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify({
+            type: 'beta.anticheat',
+            value: enabled ? 'true' : 'false'
+        }));
+    } else {
+        showNotification('Not connected to server. Please wait or refresh the page.');
+    }
+}
+
+// Example usage
+setAntiCheat(true); // Enable anti-cheat
+setAntiCheat(false); // Disable anti-cheat
 
 // Initialize connection
 connectToServer();
